@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Load Balancer App</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+
+<div class = "title" ><h1>Calculator</h1></div>
+      <table >
+         <tr>
+            
+                      
+            <td colspan="4">
+                <input type="text" class="form-control" aria-describedby="button-addon2" id="result">
+                <input type="text" id="shadowbox">
+            </td>
+            <!-- clr() function will call clr to clear all value -->
+            <td><input type="button" value="c"  class="btn btn-outline-primary" onclick="clr()"/> </td>
+            <td><input type="button" value="u"  class="btn btn-outline-primary" onclick="updateShadow()"/> </td>
+         </tr>
+         <tr>
+            <!-- create button and assign value to each button -->
+            <!-- dis("1") will call function dis to display value -->
+            <td><input type="button" value="Tan" class="btn btn-outline-primary" onclick="dis('Tan()')"/> </td>
+            <td><input type="button" value="1" class="btn btn-outline-primary" onclick="dis('1')"/> </td>
+            <td><input type="button" value="2" class="btn btn-outline-primary" onclick="dis('2')"/> </td>
+            <td><input type="button" value="3" class="btn btn-outline-primary" onclick="dis('3')"/> </td>
+            <td><input type="button" value="/" class="btn btn-outline-primary" onclick="dis('/')"/> </td>
+         </tr>
+         <tr>
+            <td><input type="button" value="Cos" class="btn btn-outline-primary" onclick="dis('Cos()')"/> </td>
+            <td><input type="button" value="4" class="btn btn-outline-primary" onclick="dis('4')"/> </td>
+            <td><input type="button" value="5" class="btn btn-outline-primary" onclick="dis('5')"/> </td>
+            <td><input type="button" value="6" class="btn btn-outline-primary" onclick="dis('6')"/> </td>
+            <td><input type="button" value="-" class="btn btn-outline-primary" onclick="dis('-')"/> </td>
+         </tr>
+         <tr>
+            <td><input type="button" value="Sin" class="btn btn-outline-primary" onclick="dis('Sin()')"/> </td>
+            <td><input type="button" value="7" class="btn btn-outline-primary" onclick="dis('7')"/> </td>
+            <td><input type="button" value="8" class="btn btn-outline-primary" onclick="dis('8')"/> </td>
+            <td><input type="button" value="9" class="btn btn-outline-primary" onclick="dis('9')"/> </td>
+            <td><input type="button" value="+" class="btn btn-outline-primary" onclick="dis('+')"/> </td>
+         </tr>
+         <tr>
+            <td><input type="button" value="ln" class="btn btn-outline-primary" onclick="dis('ln()')"/> </td>
+            <td><input type="button" value="." class="btn btn-outline-primary" onclick="dis('.')"/> </td>
+            <td><input type="button" value="0" class="btn btn-outline-primary" onclick="dis('0')"/> </td>
+            <!-- solve function call function solve to evaluate value -->
+            <td><input type="button" value="=" class="btn btn-outline-primary" onclick="solve()"/> </td>
+            <td><input type="button" value="*" class="btn btn-outline-primary" onclick="dis('*')"/> </td>
+         </tr>
+      </table> 
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</body>
+
+</html>
+<script> 
+    //function that display value 
+    function dis(val) 
+    { 
+        document.getElementById("result").value+=val
+        // if(val == "Tan()" || val == "Sin()" || val == "Cos()" || val=="(ln)"){
+        //     val="math."+val.toLowerCase()
+        // } 
+        // document.getElementById("shadowbox").value+=val
+    } 
+
+    function updateShadow(){
+        var input = document.getElementById("result").value
+        var str
+        var i=0
+        while (i< input.length){
+            let curr = input[i]
+            if(isNaN(curr)){
+                if(curr != "+" || curr != "-" || curr!="*" || curr !="/"){
+                    str += "math."+curr;
+                }else{
+                    str += input[i]
+                }
+            }else{
+                str += input[i]
+            }
+            i++;
+        }
+    }
+      
+    function sendInputToServer(input){
+        url = "http://127.12.1.1:8080/calculate?"+"evalstring="+encodeURIComponent(input)
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.onreadystatechange = function(){
+                if (this.readyState == 4 && this.status == 200){
+                    response = JSON.parse(xmlHttp.responseText)
+                    if(response == "Error")
+                        document.getElementById("result").value="Error"
+                    else
+                        document.getElementById("result").value = response
+                }else{
+                }
+            }
+            try {
+                xmlHttp.open("GET", url, true); // false for synchronous request
+                xmlHttp.send();
+            }catch (e) {
+                console.log(e)
+                bothMachineDown = tryWithSecondaryMachine(machine2)
+            }
+    }
+    //function that evaluates the digit and return result 
+    function solve()
+    { 
+
+        let x = document.getElementById("result").value
+        //let y = eval(x) 
+        sendInputToServer(x)
+        //document.getElementById("result").value = y 
+    } 
+      
+    //function that clear the display 
+    function clr() 
+    { 
+        document.getElementById("result").value = "" 
+        document.getElementById("shadowbox").value = ""
+    } 
+ </script> 
+ <!-- for styling -->
+ <style> 
+    /* .title{ 
+    margin-bottom: 10px; 
+    text-align:center; 
+    width: 210px; 
+    color:green; 
+    border: solid black 2px; 
+    }  */
+
+    input[type="button"] 
+    {
+        width:100% 
+    } 
+
+    input[type="text"] 
+    { 
+    background-color:white; 
+    border: solid grey 1px; 
+    width:100% 
+    } 
+ </style>

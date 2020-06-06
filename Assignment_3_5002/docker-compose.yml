@@ -1,0 +1,22 @@
+version: '3'
+services:
+  web:
+    build: .
+    container_name: lb5002
+    links:
+      - db
+    depends_on:
+      - db
+    ports:
+     - "5002:5002"
+  db:
+    image: mysql
+    ports:
+    - "3307:3306"
+    volumes:
+    - d:/Software Architecture CS654A/DatabaseVolume2:/var/lib/mysql
+    environment:
+    - MYSQL_ROOT_PASSWORD=password
+    - MYSQL_USER=user
+    - MYSQL_PASSWORD=password
+    - MYSQL_DATABASE=demodb

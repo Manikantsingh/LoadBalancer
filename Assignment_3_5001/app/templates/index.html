@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Load Balancer App</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+
+        <div class="row">
+        
+                <div class="col-sm-6">
+                    <div class="card text-center">
+                        <div class="card-header">
+                        String Operation
+                        </div>
+                        <div class="card-body">
+                                <div class="input-group mb-3">
+                                    <input type="text" id="concat" class="form-control" placeholder="abc + def" aria-label="Concatenate" aria-describedby="basic-addon2">
+                                    <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="concatenate()">Concatenate</button>
+                                    </div>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <input type="text" id="lengthstr" class="form-control" aria-label="Length" aria-describedby="basic-addon2">
+                                    <div class="input-group-append">
+                                            <span class="input-group-text" id="length"></span>
+                                            <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="length()">Length</button>
+                                    </div>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <input type="text" id="reverse" class="form-control" aria-label="Reverse" aria-describedby="basic-addon2">
+                                    <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="reverse()">Reverse</button>
+                                    </div>
+                                </div>
+                        </div>
+                            <!-- <div class="card-footer text-muted">
+                            2 days ago
+                            </div> -->
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                        <div class="card text-center">
+                            <div class="card-header">
+                            Calculator
+                            </div>
+                            <div class="card-body">
+                                    <table >
+                                            <tr>       
+                                               <td colspan="4">
+                                                   <input type="text" class="form-control" aria-describedby="button-addon2" id="result">
+                                                   <input type="hidden" id="shadowbox">
+                                               </td>
+                                               <!-- clr() function will call clr to clear all value -->
+                                               <td><input type="button" value="c"  class="btn btn-outline-primary" onclick="clr()"/> </td>
+                                               <!-- <td><input type="button" value="u"  class="btn btn-outline-primary" onclick="updateShadow()"/> </td> -->
+                                            </tr>
+                                            <tr>
+                                               <!-- create button and assign value to each button -->
+                                               <!-- dis("1") will call function dis to display value -->
+                                               <td><input type="button" value="tan" class="btn btn-outline-primary" onclick="dis('tan()')"/> </td>
+                                               <td><input type="button" value="1" class="btn btn-outline-primary" onclick="dis('1')"/> </td>
+                                               <td><input type="button" value="2" class="btn btn-outline-primary" onclick="dis('2')"/> </td>
+                                               <td><input type="button" value="3" class="btn btn-outline-primary" onclick="dis('3')"/> </td>
+                                               <td><input type="button" value="/" class="btn btn-outline-primary" onclick="dis('/')"/> </td>
+                                            </tr>
+                                            <tr>
+                                               <td><input type="button" value="cos" class="btn btn-outline-primary" onclick="dis('cos()')"/> </td>
+                                               <td><input type="button" value="4" class="btn btn-outline-primary" onclick="dis('4')"/> </td>
+                                               <td><input type="button" value="5" class="btn btn-outline-primary" onclick="dis('5')"/> </td>
+                                               <td><input type="button" value="6" class="btn btn-outline-primary" onclick="dis('6')"/> </td>
+                                               <td><input type="button" value="-" class="btn btn-outline-primary" onclick="dis('-')"/> </td>
+                                            </tr>
+                                            <tr>
+                                               <td><input type="button" value="sin" class="btn btn-outline-primary" onclick="dis('sin()')"/> </td>
+                                               <td><input type="button" value="7" class="btn btn-outline-primary" onclick="dis('7')"/> </td>
+                                               <td><input type="button" value="8" class="btn btn-outline-primary" onclick="dis('8')"/> </td>
+                                               <td><input type="button" value="9" class="btn btn-outline-primary" onclick="dis('9')"/> </td>
+                                               <td><input type="button" value="+" class="btn btn-outline-primary" onclick="dis('+')"/> </td>
+                                            </tr>
+                                            <tr>
+                                               <td><input type="button" value="log10" class="btn btn-outline-primary" onclick="dis('log10()')"/> </td>
+                                               <td><input type="button" value="." class="btn btn-outline-primary" onclick="dis('.')"/> </td>
+                                               <td><input type="button" value="0" class="btn btn-outline-primary" onclick="dis('0')"/> </td>
+                                               <!-- solve function call function solve to evaluate value -->
+                                               <td><input type="button" value="=" class="btn btn-outline-primary" onclick="solve()"/> </td>
+                                               <td><input type="button" value="*" class="btn btn-outline-primary" onclick="dis('*')"/> </td>
+                                            </tr>
+                                         </table> 
+                            </div>
+                            <!-- <div class="card-footer text-muted">
+                            2 days ago
+                            </div> -->
+                        </div>
+                        </div>
+        </div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</body>
+
+</html>
+<script>
+
+
+    function reverse(){
+            var string = document.getElementById("reverse").value
+            url = "http://127.12.1.1:8080/reverse?"+"evalstring="+encodeURIComponent(string)
+                var xmlHttp = new XMLHttpRequest();
+                xmlHttp.onreadystatechange = function(){
+                    if (this.readyState == 4 && this.status == 200){
+                        response = JSON.parse(xmlHttp.responseText)
+                        if(response == "Error")
+                            document.getElementById("reverse").value="Error"
+                        else
+                            document.getElementById("reverse").value = response
+                    }else{
+                    }
+                }
+                try {
+                    xmlHttp.open("GET", url, true); // false for synchronous request
+                    xmlHttp.send();
+                }catch (e) {
+                    console.log(e)
+                }
+        }
+
+    function concatenate(){
+        var string = document.getElementById("concat").value
+        url = "http://127.12.1.1:8080/concatenate?"+"evalstring="+encodeURIComponent(string)
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.onreadystatechange = function(){
+                if (this.readyState == 4 && this.status == 200){
+                    response = JSON.parse(xmlHttp.responseText)
+                    if(response == "Error")
+                        document.getElementById("concat").value="Error"
+                    else
+                        document.getElementById("concat").value = response
+                }else{
+                }
+            }
+            try {
+                xmlHttp.open("GET", url, true); // false for synchronous request
+                xmlHttp.send();
+            }catch (e) {
+                console.log(e)
+            }
+    }
+
+    function length(){
+        var string = document.getElementById("lengthstr").value
+        url = "http://127.12.1.1:8080/length?"+"evalstring="+encodeURIComponent(string)
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.onreadystatechange = function(){
+                if (this.readyState == 4 && this.status == 200){
+                    response = JSON.parse(xmlHttp.responseText)
+                    if(response == "Error")
+                        document.getElementById("length").value="Error"
+                    else
+                        document.getElementById("length").innerText = response
+                }else{
+                }
+            }
+            try {
+                xmlHttp.open("GET", url, true); // false for synchronous request
+                xmlHttp.send();
+            }catch (e) {
+                console.log(e)
+            }
+    }
+
+
+    //function that display value 
+    function dis(val) 
+    { 
+        document.getElementById("result").value+=val
+    } 
+
+    function updateShadow(){
+        var input = document.getElementById("result").value
+        var str=""
+        var i=0
+        str = input.replace(/tan/gi, "math.tan")
+        str = str.replace(/cos/gi, "math.cos")
+        str = str.replace(/sin/gi, "math.sin")
+        str = str.replace(/log10/gi, "math.log10")
+
+        document.getElementById("shadowbox").value = str;
+    }
+      
+    function sendInputToServer(input){
+        url = "http://127.12.1.1:8080/calculate?"+"evalstring="+encodeURIComponent(input)
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.onreadystatechange = function(){
+                if (this.readyState == 4 && this.status == 200){
+                    response = JSON.parse(xmlHttp.responseText)
+                    if(response == "Error")
+                        document.getElementById("result").value="Error"
+                    else
+                        document.getElementById("result").value = response
+                }else{
+                }
+            }
+            try {
+                xmlHttp.open("GET", url, true); // false for synchronous request
+                xmlHttp.send();
+            }catch (e) {
+                console.log(e)
+            }
+    }
+    //function that evaluates the digit and return result 
+    function solve()
+    { 
+
+        updateShadow();
+        let x = document.getElementById("shadowbox").value
+        //let y = eval(x) 
+        sendInputToServer(x)
+        //document.getElementById("result").value = y 
+    } 
+      
+    //function that clear the display 
+    function clr() 
+    { 
+        document.getElementById("result").value = "" 
+        document.getElementById("shadowbox").value = ""
+    } 
+ </script> 
+ <!-- for styling -->
+ <style> 
+
+    input[type="button"] 
+    {
+        width:100% 
+    } 
+
+    input[type="text"] 
+    { 
+    background-color:white; 
+    border: solid grey 1px; 
+    width:100% 
+    } 
+ </style>
